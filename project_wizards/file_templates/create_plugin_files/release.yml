@@ -1,0 +1,103 @@
+# GitHub Action: whenever creating a new release of the source code,
+# also create a release of the installable plugin.
+# Steps to execute:
+# - Checkout the source code
+# - Run "composer install" to download all dependencies under vendor/
+# - Create a .zip file, excluding:
+#   - All hidden files (.git, .gitignore, etc)
+#   - All development files, ending in .dist
+#   - All composer files <= after installing dependencies, no need for them anymore
+#   - Markdown files concerning development
+#   - Folder build/ <= created only to store the .zip file
+#   - Folder dev-helpers/ <= not needed for the plugin
+# - Upload the .zip file as an artifact to the action (this step is possibly optional)
+# - Upload the .zip file as a release, for download
+name: Generate Installable Plugin, and Upload as Release Asset
+env:
+  ZIP_FILE_NAME: wit-announcements-plugin.zip
+  run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+  ACF_PRO_KEY: '${{ secrets.ACF_PRO_KEY }}'
+on:
+  release:
+    types: [published]
+jobs:
+  create_new_branch:
+    name: Create Branch from Tag Name
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the tag name
+        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+      - name: New Release Branch
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: '${{ env.TAG }}'
+
+  build:
+    name: Build and Upload Release Asset
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Composer
+        uses: php-actions/composer@v1
+        with:
+          command: install
+      - name: Check if package.json file exists
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "package.json"
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        # Only runs if all of the files exists
+        run: echo All files exists!
+      #      - name: Use Node.js
+      #        uses: actions/setup-node@v1
+      #        with:
+      #          node-version: '12.x'
+      #      - name: Cache Node.js modules
+      #        uses: actions/cache@v1
+      #        with:
+      #          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+      #          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      #          restore-keys: |
+      #            ${{ runner.OS }}-node-
+      #            ${{ runner.OS }}-
+      #      - name: Install NPM dependencies
+      #        run: npm ci
+      #      - name: Build Project
+      #        run: npm run production --if-present
+      - name: Build project
+        run: |
+          mkdir build
+      - name: Remove .git files
+        run : "rm -rf .git"
+      - name: Create artifact
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -X -r build/${{ env.ZIP_FILE_NAME}} . -x *.git* LATE.md *.dist composer.* dev-helpers** build** node_modules** webpack.mix.js package.json package-lock.json mix-manifest.json src .git .github .gitignore**
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: graphql-api
+          path: build/${{ env.ZIP_FILE_NAME}}
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: build/${{ env.ZIP_FILE_NAME}} application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.0
+        with:
+          username: 'witdigitalpluginserver'
+          server: '34.69.216.227'
+          port: 30151
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local_path: 'build/${{ env.ZIP_FILE_NAME}}'
+          remote_path: 'public/wp-update-server/packages/'
+          args: '-o ConnectTimeout=5'

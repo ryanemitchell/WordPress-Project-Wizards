@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Behat">
+    <behat_settings>
+      <BehatSettings />
+    </behat_settings>
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/yahnis-elsts/plugin-update-checker" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/advanced-custom-fields/advanced-custom-fields-pro" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/composer" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/scssphp/scssphp" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/my-new-plugin/vendor/pivvenit/acf-pro-installer" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings />
+    </phpunit_settings>
+  </component>
+</project>

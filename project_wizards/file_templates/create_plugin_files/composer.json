@@ -1,0 +1,35 @@
+{
+  "name": "[pluginTextDomain]/[pluginSlug]",
+  "description": "[pluginShortDescription]",
+  "type": "wordpress-plugin",
+  "require": {
+    "advanced-custom-fields/advanced-custom-fields-pro": "^5.9",
+    "scssphp/scssphp": "^1.4.1",
+    "yahnis-elsts/plugin-update-checker": "^4.11"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://pivvenit.github.io/acf-composer-bridge/composer/v3/library/"
+    }
+  ],
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "[pluginAuthor]",
+      "email": "[pluginAuthorEmail]"
+    }
+  ],
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "lint": [
+      "phpcs --ignore=index.php,vendor,resources,storage,dist --extensions=php --standard=PSR12 ."
+    ]
+  }
+}

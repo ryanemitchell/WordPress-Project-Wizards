@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/yahnis-elsts/plugin-update-checker" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/graham-campbell/result-type" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/advanced-custom-fields/advanced-custom-fields-pro" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/scssphp/scssphp" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/my-new-plugin/vendor/pivvenit/acf-pro-installer" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
