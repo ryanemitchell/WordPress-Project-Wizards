@@ -160,6 +160,7 @@ then
   mkdir -p ../$pluginFolderName/.github/workflows
    cp file_templates/create_plugin_files/release.yml ../$pluginFolderName/.github/workflows/release.yml
    sed -i '' "s/\[pluginZipFileName\]/$pluginZipFileName/g" ../$pluginFolderName/.github/workflows/release.yml
+    sed -i '' "s/\[pluginSlug\]/$pluginSlug/g" ../$pluginFolderName/.github/workflows/release.yml
    echo "${success}Github Release WorkFlow File has completed${normal}"
 fi
 
@@ -215,9 +216,17 @@ fi
 
 if echo "$useLaravelMix" | grep -iq "^y" ;then
     echo Setting up NPM and Laravel Mix
+
      cp file_templates/laravel_mix_setup_files/package.json ../$pluginFolderName/package.json
      cp file_templates/laravel_mix_setup_files/webpack.mix.js ../$pluginFolderName/webpack.mix.js
-     cat ../webpack.mix.js >> ../$pluginFolderName/$pluginFolderName.php
+     mkdir -p ../$pluginFolderName/resources/assets/styles ../$pluginFolderName/resources/assets/scripts
+#     ls -al
+      cp file_templates/laravel_mix_setup_files/resources/assets/scripts/scripts.js ../$pluginFolderName/resources/assets/scripts/$pluginSlug-scripts.js
+      cp file_templates/laravel_mix_setup_files/resources/assets/styles/styles.scss ../$pluginFolderName/resources/assets/styles/$pluginSlug-styles.scss
+#     cat ../webpack.mix.js >> ../$pluginFolderName/$pluginFolderName.php
+
+
+     sed -i '' "s/\[pluginSlug\]/$pluginSlug/g" ../$pluginFolderName/webpack.mix.js
 else
     echo No Laravel
 fi

@@ -39,6 +39,7 @@ function [blockUnderSlug]_register_blocks() {
 			'mode'     => true,
 			'align'    => array( 'wide', 'full', 'center' ),
 			'multiple' => true,
+			'jsx'     => true
 		)
 	) );
 }

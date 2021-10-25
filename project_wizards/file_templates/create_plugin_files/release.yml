@@ -14,9 +14,11 @@
 # - Upload the .zip file as a release, for download
 name: Generate Installable Plugin, and Upload as Release Asset
 env:
-  ZIP_FILE_NAME: wit-announcements-plugin.zip
+  ZIP_FILE_NAME: [pluginZipFileName]
+  PLUGIN_SLUG: [pluginSlug]
   run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
   ACF_PRO_KEY: '${{ secrets.ACF_PRO_KEY }}'
+
 on:
   release:
     types: [published]
@@ -37,7 +39,7 @@ jobs:
 
   build:
     name: Build and Upload Release Asset
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout code
@@ -76,10 +78,23 @@ jobs:
           mkdir build
       - name: Remove .git files
         run : "rm -rf .git"
-      - name: Create artifact
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -X -r build/${{ env.ZIP_FILE_NAME}} . -x *.git* LATE.md *.dist composer.* dev-helpers** build** node_modules** webpack.mix.js package.json package-lock.json mix-manifest.json src .git .github .gitignore**
+      #       - name: Create artifact
+      #         uses: montudor/action-zip@v0.1.0
+      #         with:
+      #           args: zip -r build/${{ env.ZIP_FILE_NAME}} ./ -x *.git* LATE.md *.dist composer.* dev-helpers** build** node_modules** webpack.mix.js package.json package-lock.json mix-manifest.json src .git .github .gitignore**
+      #       - name: Archive Release
+      #         uses: thedoctor0/zip-release@master
+      #         with:
+      #           type: 'zip'
+      #           path: './*'
+      #           filename: 'build/${{ env.ZIP_FILE_NAME}}'
+      #           exclusions: '*.git* /*node_modules/* .editorconfig'
+      - name: manual zip - necessary to create the propper container
+        run: cd .. && zip -r ${{ env.ZIP_FILE_NAME}} ${{ env.PLUGIN_SLUG}}/ -x *.git* LATE.md *.dist composer.* dev-helpers** build** node_modules** webpack.mix.js package.json package-lock.json mix-manifest.json src .git .github .gitignore**
+      - name: move the zip
+        run: cd .. && mv ${{ env.ZIP_FILE_NAME}} ${{ env.PLUGIN_SLUG}}/build/${{ env.ZIP_FILE_NAME}}
+      - name: list files
+        run: ls -al
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:

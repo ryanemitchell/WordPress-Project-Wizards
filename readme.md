@@ -38,3 +38,7 @@ Basic Instructions are provided as the script runs.
 [ACF Composer Bridge](https://github.com/pivvenit/acf-composer-bridge) - Allows composer to install ACF pro. 
 
 
+Fr Deployment you must add Keys to Repo
+
+ACF_PRO_KEY
+SSH_PRIVATE_KEY in my case pbcopy <  .ssh/id_rsa_ryanmitchell2021

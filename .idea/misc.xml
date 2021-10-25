@@ -83,7 +83,4 @@
       <textMaps />
     </LinkMapSettings>
   </component>
-  <component name="ScssLintProjectComponent">
-    <option name="pluginEnabled" value="true" />
-  </component>
 </project>

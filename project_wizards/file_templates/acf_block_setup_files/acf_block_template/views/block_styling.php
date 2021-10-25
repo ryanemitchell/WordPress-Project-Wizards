@@ -14,7 +14,7 @@
 	========================================================================== */
 
 use ScssPhp\ScssPhp\Compiler;
-
+global $witcom_breakpoint_md;
 /*  ==========================================================================
 	Get Wit Commander fields and set vars
 	========================================================================== */
@@ -28,35 +28,35 @@ use ScssPhp\ScssPhp\Compiler;
 /* === Layout ==== */
 
 if ( get_field( '[blockUnderSlug]_wrapper_padding' ) ) :
-	$acf_starter_block_wrapper_padding = get_field( 'acf_starter_block_wrapper_padding' ) . "px";
+	$[blockUnderSlug]_wrapper_padding = get_field( '[blockUnderSlug]_wrapper_padding' ) . "px";
 else :
-	$acf_starter_block_wrapper_padding = '0';
+	$[blockUnderSlug]_wrapper_padding = '0';
 endif;
 
 
-/* ===  Colors === */
+/* ===  ACF Fields to Variables === */
 
-if ( get_field( 'acf_starter_block_desktop_background_color' ) ) :
-	$acf_starter_block_desktop_background_color = get_field( 'acf_starter_block_desktop_background_color' );
+if ( get_field( '[blockUnderSlug]_desktop_background_color' ) ) :
+	$[blockUnderSlug]_desktop_background_color = get_field( '[blockUnderSlug]_desktop_background_color' );
 else :
-	$acf_starter_block_desktop_background_color = '#ffffff';
+	$[blockUnderSlug]_desktop_background_color = '#CCFF00';
 endif;
 
 
 
-if ( get_field( 'acf_starter_block_mobile_background_color' ) ) :
-	$acf_starter_block_mobile_background_color = get_field( 'acf_starter_block_mobile_background_color' );
+if ( get_field( '[blockUnderSlug]_mobile_background_color' ) ) :
+	$[blockUnderSlug]_mobile_background_color = get_field( '[blockUnderSlug]_mobile_background_color' );
 else :
-	$acf_starter_block_mobile_background_color = '#ffffff';
+	$[blockUnderSlug]_mobile_background_color = '#FF00CC';
 endif;
 
 
 /* === Additional SCSS === */
 
-if ( get_field( 'acf_starter_block_additional_scss' ) ) :
-	$acf_starter_block_additional_scss = get_field( 'acf_starter_block_additional_scss' );
+if ( get_field( '[blockUnderSlug]_additional_scss' ) ) :
+	$[blockUnderSlug]_additional_scss = get_field( '[blockUnderSlug]_additional_scss' );
 else :
-	$acf_starter_block_additional_scss = '';
+	$[blockUnderSlug]_additional_scss = '';
 endif;
 
 
@@ -69,28 +69,42 @@ $[blockUnderSlug]_scss = /** @lang SCSS */
 
             #$blockID {
          
-               .starterBlock {
+               .[blockCamelSlug] {
                
 	               &_wrapper {
-	                 background-color: $acf_starter_block_mobile_background_color;
-	                 padding: $acf_starter_block_wrapper_padding;
+	                 background-color: $[blockUnderSlug]_mobile_background_color;
+	                 padding: $[blockUnderSlug]_wrapper_padding;
 	               
 		                @media (min-width: $witcom_breakpoint_md) {
-		                  background-color: $acf_starter_block_desktop_background_color;
+		                  background-color: $[blockUnderSlug]_desktop_background_color;
 		                } //end medium breakpoint
 	               
 	               }
 
 					&_inner {
-	                 display: grid;
-	                 grid-template-columns: auto; 
+	                 display: flex;
+	                 flex-direction: column;
+					 align-items: center;
 	                 justify-items: center; 
 	               
 	               }
                
                }
+               
+				/* ===========================  Styling for in the editor ONLY  ========================== */
+               
+				@at-root {
+				  .wp-admin {
+				    #$blockID {
+				      border: 1px solid red;
+				    }
+				  }
+				}
 
-               $acf_starter_block_additional_scss
+               /* ===========================  End editor ONLY Styling ========================== */
+               
+
+               $[blockUnderSlug]_additional_scss
 
             } /* End of .$blockID */
 

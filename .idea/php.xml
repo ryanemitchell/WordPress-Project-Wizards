@@ -20,7 +20,7 @@
       <path value="$PROJECT_DIR$/my-new-plugin/vendor/pivvenit/acf-pro-installer" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings />

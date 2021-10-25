@@ -2,6 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rmm-development-plugin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/wit-announcements-plugin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/wit-wordpress-seo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/witdigital-landing-pages" vcs="Git" />
   </component>
 </project>
